@@ -1,5 +1,6 @@
 package app.infrastructure.entity;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public class PersonEntity {
@@ -78,5 +79,14 @@ public class PersonEntity {
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName, address, city, zip, phone, email);
+    }
+
+    public String generateIdFromFirstnameAndLastname(){
+        return new StringBuilder()
+                .append(this.getFirstName())
+                .append(".")
+                .append(this.getLastName())
+                .toString()
+                .toLowerCase(Locale.ROOT);
     }
 }

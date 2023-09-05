@@ -108,17 +108,18 @@ public class Person {
         return fireStationsNumbers;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return id.equals(person.id);
+        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(city, person.city) && Objects.equals(zip, person.zip) && Objects.equals(phone, person.phone) && Objects.equals(email, person.email) && Objects.equals(birthDate, person.birthDate) && Objects.equals(medicalRecordId, person.medicalRecordId) && Objects.equals(fireStationsNumbers, person.fireStationsNumbers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, firstName, lastName, address, city, zip, phone, email, birthDate, medicalRecordId, fireStationsNumbers);
     }
 
     @Override

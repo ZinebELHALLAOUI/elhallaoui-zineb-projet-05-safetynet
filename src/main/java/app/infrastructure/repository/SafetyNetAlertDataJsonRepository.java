@@ -22,7 +22,13 @@ public class SafetyNetAlertDataJsonRepository {
     }
 
     protected SafetyNetAlertDataJsonRepository(final File jsonFilePath) {
-        this();
         this.jsonFilePath = jsonFilePath;
+        SafetyNetAlertData safetyNetAlertData;
+        try {
+            safetyNetAlertData = objectMapper.readValue(jsonFilePath, SafetyNetAlertData.class);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not read file : " + jsonFilePath, e);
+        }
+        this.safetyNetAlertData = safetyNetAlertData;
     }
 }
