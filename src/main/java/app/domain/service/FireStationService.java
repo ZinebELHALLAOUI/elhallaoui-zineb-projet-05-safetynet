@@ -1,15 +1,12 @@
-package app.domain.repository;
+package app.domain.service;
 
 import app.domain.model.FireStation;
 
-import java.util.Optional;
-import java.util.Set;
-
-public interface FireStationRepository {
-    Optional<FireStation> findByAddress (final String Address);
-    Set<FireStation> findByStationNumber (final Integer stationNumber);
+public interface FireStationService {
     FireStation add(final FireStation fireStation);
+
     FireStation update(final FireStation fireStation);
+
     boolean deleteByStationNumber(final Integer stationNumber);
     boolean deleteByAddress(final String address);
 }
