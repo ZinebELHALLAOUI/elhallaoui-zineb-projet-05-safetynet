@@ -3,11 +3,12 @@ package app.domain.model;
 import java.util.Objects;
 
 public class Email {
+
+    @org.hibernate.validator.constraints.Email
     private final String mail;
 
-    public Email(String mail) {
+    public Email(@org.hibernate.validator.constraints.Email String mail) {
         this.mail = mail;
-        //TODO add validator
     }
 
     @Override

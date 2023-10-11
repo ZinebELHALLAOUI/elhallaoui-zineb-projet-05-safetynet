@@ -1,15 +1,21 @@
-package app.infrastructure.entity;
+package app.infrastructure.controller.dto.person;
 
-import java.util.Locale;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
-public class PersonEntity {
+public class PersonAddRequest {
+    @NotEmpty(message = "Votre nom doit être renseigné")
     private String firstName;
-    private String lastName;
+    @NotEmpty(message = "Votre prénom doit être renseigné")
+    private String lastName; // notempty (validat
     private String address;
     private String city;
     private String zip;
     private String phone;
+    @NotEmpty (message = "Votre email doit être renseigné")
+    @Email (message = "Votre adresse mail n'est pas valide")
+
     private String email;
 
     public String getFirstName() {
@@ -72,7 +78,7 @@ public class PersonEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PersonEntity that = (PersonEntity) o;
+        PersonAddRequest that = (PersonAddRequest) o;
         return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(city, that.city) && Objects.equals(zip, that.zip) && Objects.equals(phone, that.phone) && Objects.equals(email, that.email);
     }
 
@@ -80,5 +86,4 @@ public class PersonEntity {
     public int hashCode() {
         return Objects.hash(firstName, lastName, address, city, zip, phone, email);
     }
-
 }

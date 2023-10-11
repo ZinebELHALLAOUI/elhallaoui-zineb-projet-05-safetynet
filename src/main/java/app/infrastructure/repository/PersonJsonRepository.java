@@ -1,12 +1,13 @@
 package app.infrastructure.repository;
 
-import app.domain.model.Email;
-import app.domain.model.Person;
-import app.domain.model.Phone;
+import app.domain.model.*;
 import app.domain.repository.PersonRepository;
 import app.infrastructure.entity.FireStationEntity;
 import app.infrastructure.entity.MedicalRecordEntity;
 import app.infrastructure.entity.PersonEntity;
+import app.infrastructure.mapper.FireStationMapper;
+import app.infrastructure.mapper.PersonMapper;
+import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class PersonJsonRepository extends SafetyNetAlertDataJsonRepository implements PersonRepository {
 
     public PersonJsonRepository() {
@@ -31,7 +33,6 @@ public class PersonJsonRepository extends SafetyNetAlertDataJsonRepository imple
                 .stream()
                 .map(personEntity ->
                         {
-                            final String id = personEntity.generateIdFromFirstnameAndLastname();
                             final String firstName = personEntity.getFirstName();
                             final String lastName = personEntity.getLastName();
                             final String address = personEntity.getAddress();
@@ -39,34 +40,84 @@ public class PersonJsonRepository extends SafetyNetAlertDataJsonRepository imple
                             final String zip = personEntity.getZip();
                             final Phone phone = personEntity.getPhone().isBlank() ? null : new Phone(personEntity.getPhone());
                             final Email email = personEntity.getEmail().isBlank() ? null : new Email(personEntity.getEmail());
-                            final LocalDate birthDate = this.findMedicalRecordByPerson(personEntity)
+                            Optional<MedicalRecordEntity> medicalRecordByPerson = this.findMedicalRecordByPerson(personEntity);
+                            MedicalRecord medicalRecord = medicalRecordByPerson.map(entity -> PersonMapper.entityToMedicalRecord(entity)).orElse(null);
+                            final LocalDate birthDate = medicalRecordByPerson
                                     .map(medicalRecordEntity -> LocalDate.parse(medicalRecordEntity.getBirthdate(), DateTimeFormatter.ofPattern("MM/dd/yyyy")))
                                     .orElse(null);
-                            final String medicalRecordId = this.findMedicalRecordByPerson(personEntity)
-                                    .map(medicalRecordEntity -> id)
-                                    .orElse(null);
-                            final List<Integer> fireStationsNumbers = this.findFireStationsByAddress(personEntity.getAddress())
-                                    .stream()
-                                    .map(fireStationEntity -> Integer.valueOf(fireStationEntity.getStation()))
-                                    .toList();
-                            return new Person(id, firstName, lastName, address, city, zip, phone, email, birthDate, medicalRecordId, fireStationsNumbers);
+
+
+                            Optional<FireStationEntity> optionalFireStation = this.findFireStationsByAddress(personEntity.getAddress());
+                            FireStation fireStation = FireStationMapper.fireStationEntityToFireStation(optionalFireStation.orElse(null));
+
+                            return new Person(firstName, lastName, address, city, zip, phone, email, birthDate, medicalRecord, fireStation);
                         }
                 ).toList();
     }
 
     @Override
-    public Person update(Person person) {
-        return null;
+    public Optional<Person> findPersonById(final String personId) {
+        return this.getAll().stream().filter(person -> person.getId().equals(personId)).findFirst();
     }
 
     @Override
-    public Person add(Person person) {
-        return null;
+    public Person updatePerson(Person person) {
+        this.deletePersonById(person.getId());
+        return this.addPerson(person);
     }
 
     @Override
-    public boolean deleteById(String personId) {
+    public Person addPerson(Person person) {
+        PersonEntity personEntity = PersonMapper.PersonToPersonEntity(person);
+        this.safetyNetAlertData.getPersons().add(personEntity);
+        this.synchronizeSafetyNetAlertData();
+        return person;
+    }
+
+    @Override
+    public boolean deletePersonById(String personId) {
+        Optional<Person> personToDelete = this.findPersonById(personId);
+        if (personToDelete.isPresent()) {
+            PersonEntity personEntityToDelete = PersonMapper.PersonToPersonEntity(personToDelete.get());
+            this.safetyNetAlertData.getPersons().remove(personEntityToDelete);
+            this.synchronizeSafetyNetAlertData();
+            return true;
+        }
         return false;
+    }
+
+    @Override
+    public Person addMedicalRecordOfPerson(Person person) {
+        MedicalRecordEntity medicalRecordOfPerson = PersonMapper.getMedicalRecordOfPerson(person);
+        this.safetyNetAlertData.getMedicalrecords().add(medicalRecordOfPerson);
+        this.synchronizeSafetyNetAlertData();
+        return person;
+    }
+
+    @Override
+    public boolean isExistsMedicalRecordById(String id) {
+        return this.safetyNetAlertData.getMedicalrecords()
+                .stream()
+                .anyMatch(medicalRecordEntity -> (medicalRecordEntity.getFirstName() + "." + medicalRecordEntity.getLastName()).equalsIgnoreCase(id));
+    }
+
+
+    @Override
+    public boolean deleteMedicalRecordOfPersonById(String medicalRecordId) {
+        if (this.isExistsMedicalRecordById(medicalRecordId)) {
+            Optional<Person> person = this.findPersonById(medicalRecordId);
+            MedicalRecordEntity medicalRecordToDelete = PersonMapper.getMedicalRecordOfPerson(person.get());
+            this.safetyNetAlertData.getMedicalrecords().remove(medicalRecordToDelete);
+            this.synchronizeSafetyNetAlertData();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Person updateMedicalRecordOfPerson(Person person) {
+        this.deleteMedicalRecordOfPersonById(person.getMedicalRecord().getId());
+        return this.addMedicalRecordOfPerson(person);
     }
 
     private Optional<MedicalRecordEntity> findMedicalRecordByPerson(final PersonEntity personEntity) {
@@ -78,10 +129,10 @@ public class PersonJsonRepository extends SafetyNetAlertDataJsonRepository imple
                 .findFirst();
     }
 
-    private List<FireStationEntity> findFireStationsByAddress(final String address) {
+    private Optional<FireStationEntity> findFireStationsByAddress(final String address) {
         return this.safetyNetAlertData.getFirestations()
                 .stream()
                 .filter(fireStationEntity -> fireStationEntity.getAddress().equals(address))
-                .toList();
+                .findFirst();
     }
 }

@@ -1,7 +1,13 @@
 package app.domain.model;
 
+import app.domain.service.exception.ClientException;
+
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Person {
@@ -14,54 +20,47 @@ public class Person {
     private String zip;
     private Phone phone;
     private Email email;
-    private LocalDate birthDate;
-    private String medicalRecordId;
-    private List<Integer> fireStationsNumbers;
+    private LocalDate birthdate;
+    private MedicalRecord medicalRecord = null;
+    private FireStation fireStation = null;
 
-    public Person(String id, String firstName, String lastName, String address, String city, String zip, Phone phone, Email email, LocalDate birthDate, String medicalRecordId, List<Integer> fireStationsNumbers) {
-        this.id = id;
+    public Person(String firstName, String lastName, String address, String city, String zip, Phone phone, Email email, LocalDate birthdate, MedicalRecord medicalRecord, FireStation fireStation) {
         this.firstName = firstName;
         this.lastName = lastName;
+        if (this.firstName == null || this.lastName == null || this.firstName.isBlank() || this.lastName.isBlank())
+            throw new ClientException("Firstname and Lastname are required");
         this.address = address;
         this.city = city;
         this.zip = zip;
         this.phone = phone;
         this.email = email;
-        this.birthDate = birthDate;
-        this.medicalRecordId = medicalRecordId;
-        this.fireStationsNumbers = fireStationsNumbers;
+        this.birthdate = birthdate;
+        this.medicalRecord = medicalRecord;
+        this.fireStation = fireStation;
+        this.id = generateIdFromFirstnameAndLastname();
     }
 
-    public void setAddress(String address) {
+    public Person(String firstName, String lastName, String address, String city, String zip, Phone phone, Email email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        if (this.firstName == null || this.lastName == null || this.firstName.isBlank() || this.lastName.isBlank())
+            throw new ClientException("Firstname and Lastname are required");
         this.address = address;
-    }
-
-    public void setCity(String city) {
         this.city = city;
-    }
-
-    public void setZip(String zip) {
         this.zip = zip;
-    }
-
-    public void setPhone(Phone phone) {
         this.phone = phone;
-    }
-
-    public void setEmail(Email email) {
         this.email = email;
+        this.id = generateIdFromFirstnameAndLastname();
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public void setMedicalRecordId(String medicalRecordId) {
-        this.medicalRecordId = medicalRecordId;
-    }
-
-    public void setFireStationsNumbers(List<Integer> fireStationsNumbers) {
-        this.fireStationsNumbers = fireStationsNumbers;
+    public Person(final String firstName, final String lastName, final String birthdate, final List<String> medications, final List<String> allergies) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        if (this.firstName == null || this.lastName == null || this.firstName.isBlank() || this.lastName.isBlank())
+            throw new ClientException("Firstname and Lastname are required");
+        this.birthdate = LocalDate.parse(birthdate, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        this.id = generateIdFromFirstnameAndLastname();
+        this.medicalRecord = new MedicalRecord(id, new HashSet<>(medications), new HashSet<>(allergies));
     }
 
     public String getId() {
@@ -80,62 +79,100 @@ public class Person {
         return address;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getCity() {
         return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getZip() {
         return zip;
     }
 
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
     public Phone getPhone() {
         return phone;
+    }
+
+    public void setPhone(Phone phone) {
+        this.phone = phone;
     }
 
     public Email getEmail() {
         return email;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public void setEmail(Email email) {
+        this.email = email;
     }
 
-    public String getMedicalRecordId() {
-        return medicalRecordId;
+    public LocalDate getBirthdate() {
+        return birthdate;
     }
 
-    public List<Integer> getFireStationsNumbers() {
-        return fireStationsNumbers;
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
     }
 
+    public MedicalRecord getMedicalRecord() {
+        return medicalRecord;
+    }
+
+    public void setMedicalRecord(MedicalRecord medicalRecord) {
+        this.medicalRecord = medicalRecord;
+    }
+
+    public FireStation getFireStation() {
+        return fireStation;
+    }
+
+    public void setFireStation(FireStation fireStation) {
+        this.fireStation = fireStation;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(city, person.city) && Objects.equals(zip, person.zip) && Objects.equals(phone, person.phone) && Objects.equals(email, person.email) && Objects.equals(birthDate, person.birthDate) && Objects.equals(medicalRecordId, person.medicalRecordId) && Objects.equals(fireStationsNumbers, person.fireStationsNumbers);
+        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(city, person.city) && Objects.equals(zip, person.zip) && Objects.equals(phone, person.phone) && Objects.equals(email, person.email) && Objects.equals(birthdate, person.birthdate) && Objects.equals(medicalRecord, person.medicalRecord) && Objects.equals(fireStation, person.fireStation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, city, zip, phone, email, birthDate, medicalRecordId, fireStationsNumbers);
+        return Objects.hash(id, firstName, lastName, address, city, zip, phone, email, birthdate, medicalRecord, fireStation);
     }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id='" + id + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", zip=" + zip +
-                ", phone=" + phone +
-                ", email=" + email +
-                ", birthDate=" + birthDate +
-                ", medicalRecordId='" + medicalRecordId + '\'' +
-                ", fireStationsId=" + fireStationsNumbers +
-                '}';
+    public boolean isMinor() {
+        return this.getAge() <= 18;
     }
+
+    public boolean isMajor() {
+        return !this.isMinor();
+    }
+
+    public int getAge(){
+        return Period.between(this.birthdate, LocalDate.now()).getYears();
+    }
+    public String generateIdFromFirstnameAndLastname() {
+        return generateIdFromFirstnameAndLastname(this.getFirstName(), this.getLastName());
+    }
+
+    public static String generateIdFromFirstnameAndLastname(String firstName, String lastName) {
+        return (firstName +
+                "." +
+                lastName)
+                .toLowerCase(Locale.ROOT);
+    }
+
+
 }

@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class SafetyNetAlertDataJsonRepository {
-    protected final SafetyNetAlertData safetyNetAlertData;
+    protected SafetyNetAlertData safetyNetAlertData;
     private final static ObjectMapper objectMapper = new ObjectMapper();
     private File jsonFilePath = new File("src/main/resources/safetyNetAlertData.json");
 
@@ -30,5 +30,13 @@ public class SafetyNetAlertDataJsonRepository {
             throw new RuntimeException("Could not read file : " + jsonFilePath, e);
         }
         this.safetyNetAlertData = safetyNetAlertData;
+    }
+
+    protected void synchronizeSafetyNetAlertData() {
+        try {
+            objectMapper.writeValue(jsonFilePath, safetyNetAlertData);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create file : " + jsonFilePath, e);
+        }
     }
 }

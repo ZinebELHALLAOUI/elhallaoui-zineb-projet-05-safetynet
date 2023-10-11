@@ -1,9 +1,8 @@
-package app.infrastructure.entity;
+package app.infrastructure.controller.dto.person;
 
-import java.util.Locale;
 import java.util.Objects;
 
-public class PersonEntity {
+public class PersonDto {
     private String firstName;
     private String lastName;
     private String address;
@@ -72,13 +71,12 @@ public class PersonEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PersonEntity that = (PersonEntity) o;
-        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(city, that.city) && Objects.equals(zip, that.zip) && Objects.equals(phone, that.phone) && Objects.equals(email, that.email);
+        PersonDto personDto = (PersonDto) o;
+        return Objects.equals(firstName, personDto.firstName) && Objects.equals(lastName, personDto.lastName) && Objects.equals(address, personDto.address) && Objects.equals(city, personDto.city) && Objects.equals(zip, personDto.zip) && Objects.equals(phone, personDto.phone) && Objects.equals(email, personDto.email);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName, address, city, zip, phone, email);
     }
-
 }

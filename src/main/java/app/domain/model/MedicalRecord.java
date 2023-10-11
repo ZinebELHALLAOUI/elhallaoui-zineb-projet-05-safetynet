@@ -1,17 +1,22 @@
 package app.domain.model;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class MedicalRecord {
     private final String id;
-    private final List<MedicalBackGround> medications;
-    private final List<MedicalBackGround> allergies;
+    private final Set<String> medications;
+    private final Set<String> allergies;
 
-    public MedicalRecord(String id, List<MedicalBackGround> medications, List<MedicalBackGround> allergie) {
+    public MedicalRecord(String id, Collection<String> medications, Collection<String> allergies) {
         this.id = id;
-        this.medications = medications;
-        this.allergies = allergie;
+        this.medications = new HashSet<>(medications);
+        this.allergies = new HashSet<>(allergies);
+    }
+
+    public MedicalRecord(String firstname,String lastname, Collection<String> medications, Collection<String> allergies) {
+        this.id = generateIdFromFirstnameAndLastname(firstname, lastname);
+        this.medications = new HashSet<>(medications);
+        this.allergies = new HashSet<>(allergies);
     }
 
     @Override
@@ -34,5 +39,25 @@ public class MedicalRecord {
                 ", medications=" + medications +
                 ", allergie=" + allergies +
                 '}';
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Set<String> getMedications() {
+        return medications;
+    }
+
+    public Set<String> getAllergies() {
+        return allergies;
+    }
+
+
+    public static String generateIdFromFirstnameAndLastname(String firstName, String lastName) {
+        return (firstName +
+                "." +
+                lastName)
+                .toLowerCase(Locale.ROOT);
     }
 }
