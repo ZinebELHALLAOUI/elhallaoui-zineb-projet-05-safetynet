@@ -54,7 +54,7 @@ public class PersonController {
 
     @GetMapping("/childAlert")
     public ResponseEntity<ChildAlertResponse> getChildAlert(@RequestParam String address) {
-        logger.info("var address : " + address);
+        logger.info("Requested address : " + address);
         Set<Person> personsByAddress = personService.getPersonsByAddress(address);
         ChildAlertResponse childAlertResponse = PersonMapper.personsToChildrenAlert(personsByAddress);
         return ResponseEntity.ok(childAlertResponse);
@@ -62,6 +62,7 @@ public class PersonController {
 
     @GetMapping("/phoneAlert")
     public ResponseEntity<List<String>> getPhoneAlert(@RequestParam int firestation) {
+        logger.info("Requested firestation : " + firestation);
         Set<Person> personsByFireStationNumber = personService.getPersonsByFireStationNumber(firestation);
         return ResponseEntity.ok(personsByFireStationNumber.stream().map(person -> person.getPhone().getNumber()).toList());
     }
