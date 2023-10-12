@@ -2,9 +2,7 @@ package app.infrastructure.controller;
 
 import app.domain.model.Person;
 import app.domain.service.PersonService;
-import app.infrastructure.controller.dto.person.ChildAlertResponse;
-import app.infrastructure.controller.dto.person.PersonAddRequest;
-import app.infrastructure.controller.dto.person.PersonDto;
+import app.infrastructure.controller.dto.person.*;
 import app.infrastructure.mapper.PersonMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -65,6 +63,38 @@ public class PersonController {
         logger.info("Requested firestation : " + firestation);
         Set<Person> personsByFireStationNumber = personService.getPersonsByFireStationNumber(firestation);
         return ResponseEntity.ok(personsByFireStationNumber.stream().map(person -> person.getPhone().getNumber()).toList());
+    }
+
+
+    @GetMapping("/fire")
+    public ResponseEntity<PersonsWithFireStationAndMedicalRecordResponse> getPersonByAddress(@RequestParam String address) {
+        logger.info("Requested address : " + address);
+        Set<Person> personsByAddress = personService.getPersonsByAddress(address);
+        PersonsWithFireStationAndMedicalRecordResponse response =
+                PersonMapper.personsToPersonsWithFireStationAndMedicalRecordResponse(personsByAddress);
+        return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping("/communityEmail")
+    public ResponseEntity<List<String>> getPersonsEmailByCity(@RequestParam String city) {
+        Set<Person> personsByCity = this.personService.getPersonsByCity(city);
+        return ResponseEntity.ok(PersonMapper.personsToEmails(personsByCity));
+    }
+
+    @GetMapping("/personInfo")
+    public ResponseEntity<List<PersonInfo>> getPersonsInfo(@RequestParam String firstName, @RequestParam String lastName) {
+        Set<Person> persons = personService.getPersonsByFirstnameOrLastname(firstName, lastName);
+        List<PersonInfo> personsInfo = PersonMapper.personsToPersonsInfo(persons);
+        return ResponseEntity.ok(personsInfo);
+
+    }
+
+    @GetMapping("/flood/stations")
+    public ResponseEntity<PersonsFloodResponse> getPersonsFlood(@RequestParam Set<Integer> stations){
+        Set<Person> persons = personService.getPersonsByFireStationsNumbers(stations);
+        PersonsFloodResponse response = PersonMapper.personsToPersonsFloodResponse(persons);
+        return ResponseEntity.ok(response);
     }
 
 

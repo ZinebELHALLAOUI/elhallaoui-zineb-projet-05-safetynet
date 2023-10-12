@@ -10,9 +10,7 @@ import app.infrastructure.entity.MedicalRecordEntity;
 import app.infrastructure.entity.PersonEntity;
 
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class PersonMapper {
     public static PersonEntity PersonToPersonEntity(final Person person) {
@@ -108,6 +106,7 @@ public class PersonMapper {
         ChildAlertResponse childAlertResponse = new ChildAlertResponse();
         List<ChildAlert> childAlerts = persons
                 .stream()
+                .filter(person -> person.getBirthdate() != null)
                 .filter(person -> person.isMinor())
                 .map(person -> {
                     ChildAlert childAlert = new ChildAlert();
@@ -126,4 +125,90 @@ public class PersonMapper {
         childAlertResponse.setChildrenAlert(childAlerts);
         return childAlertResponse;
     }
+
+    public static PersonsWithFireStationAndMedicalRecordResponse personsToPersonsWithFireStationAndMedicalRecordResponse(Set<Person> persons) {
+        PersonsWithFireStationAndMedicalRecordResponse response = new PersonsWithFireStationAndMedicalRecordResponse();
+        List<PersonWithFireStationAndMedicalRecord> personWithFireStationAndMedicalRecords = persons.stream()
+                .filter(person -> person.getBirthdate() != null)
+                .map(person -> {
+                    PersonWithFireStationAndMedicalRecord personFire = new PersonWithFireStationAndMedicalRecord();
+                    personFire.setFirstname(person.getFirstName());
+                    personFire.setLastname(person.getLastName());
+                    personFire.setAge(person.getAge());
+                    personFire.setPhone(person.getPhone().getNumber());
+                    if (person.getFireStation() != null)
+                        personFire.setFireStationNumber(String.valueOf(person.getFireStation().getStationNumber()));
+                    Set<String> allergies = person.getMedicalRecord().getAllergies();
+                    Set<String> medications = person.getMedicalRecord().getMedications();
+                    List<String> medicalRecords = new ArrayList<>(allergies);
+                    medicalRecords.addAll(medications);
+                    personFire.setMedicalRecords(medicalRecords);
+                    return personFire;
+                }).toList();
+        response.setPersonsWithFireStationAndMedicalRecords(personWithFireStationAndMedicalRecords);
+        return response;
+    }
+
+
+    public static List<String> personsToEmails(Set<Person> persons) {
+        return persons.stream().map(person -> person.getEmail().getMail()).toList();
+    }
+
+
+    public static List<PersonInfo> personsToPersonsInfo(Set<Person> persons) {
+        return persons.stream().map(person -> {
+            PersonInfo personInfo = new PersonInfo();
+            personInfo.setFirstName(person.getFirstName());
+            personInfo.setLastName(person.getLastName());
+            personInfo.setAge(person.getAge());
+            personInfo.setAddress(person.getAddress());
+            personInfo.setEmail(person.getEmail().getMail());
+            Set<String> medications = person.getMedicalRecord().getMedications();
+            Set<String> allergies = person.getMedicalRecord().getAllergies();
+            List<String> medicalRecords = new ArrayList<>(allergies);
+            medicalRecords.addAll(medications);
+            personInfo.setMedicalRecords(medicalRecords);
+            return personInfo;
+        }).toList();
+    }
+
+    public static PersonsFloodResponse personsToPersonsFloodResponse(Set<Person> persons) {
+        PersonsFloodResponse response = new PersonsFloodResponse();
+        Map<String, List<PersonFlood>> addressByPersonsFlood = new HashMap<>();
+        for (Person person : persons) {
+            final String currentAddress = person.getAddress();
+            if (!addressByPersonsFlood.containsKey(currentAddress)) {
+                addressByPersonsFlood.put(
+                        currentAddress,
+                        persons
+                                .stream()
+                                .filter(p -> p.getAddress().equals(currentAddress))
+                                .map(p -> {
+                                    PersonFlood personFlood = new PersonFlood();
+                                    personFlood.setFirstName(p.getFirstName());
+                                    personFlood.setLastName(p.getLastName());
+                                    personFlood.setAge(p.getAge());
+                                    personFlood.setPhone(p.getPhone().getNumber());
+                                    Set<String> medications = p.getMedicalRecord().getMedications();
+                                    Set<String> allergies = p.getMedicalRecord().getAllergies();
+                                    List<String> medicalRecords = new ArrayList<>(allergies);
+                                    medicalRecords.addAll(medications);
+                                    personFlood.setMedicalRecords(medicalRecords);
+                                    return personFlood;
+                                }).toList()
+                );
+            }
+        }
+
+        List<PersonsFloodByAddress> personsFloodByAddresses = new ArrayList<>();
+        for (Map.Entry<String, List<PersonFlood>> entry : addressByPersonsFlood.entrySet()) {
+            PersonsFloodByAddress personsFloodByAddress = new PersonsFloodByAddress();
+            personsFloodByAddress.setAddress(entry.getKey());
+            personsFloodByAddress.setPersonsFlood(entry.getValue());
+            personsFloodByAddresses.add(personsFloodByAddress);
+        }
+        response.setPersonsFloods(personsFloodByAddresses);
+        return response;
+    }
 }
+
