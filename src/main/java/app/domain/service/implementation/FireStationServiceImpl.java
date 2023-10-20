@@ -3,7 +3,8 @@ package app.domain.service.implementation;
 import app.domain.model.FireStation;
 import app.domain.repository.FireStationRepository;
 import app.domain.service.FireStationService;
-import app.domain.service.exception.ClientException;
+import app.domain.service.exception.EntityAlreadyExistException;
+import app.domain.service.exception.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +19,7 @@ public class FireStationServiceImpl implements FireStationService {
     @Override
     public FireStation add(FireStation fireStation) {
         if (this.fireStationRepository.findByAddress(fireStation.getAddress()).isPresent()) {
-            throw new ClientException("Fire station already exists");
+            throw new EntityAlreadyExistException("Fire station already exists");
         }
         return this.fireStationRepository.add(fireStation);
     }
@@ -26,7 +27,7 @@ public class FireStationServiceImpl implements FireStationService {
     @Override
     public FireStation update(FireStation fireStation) {
         if (this.fireStationRepository.findByAddress(fireStation.getAddress()).isEmpty()) {
-            throw new ClientException("Fire station does not exist");
+            throw new EntityNotFoundException("Fire station does not exist");
         }
         return this.fireStationRepository.update(fireStation);
     }
@@ -34,7 +35,7 @@ public class FireStationServiceImpl implements FireStationService {
     @Override
     public boolean deleteByStationNumber(Integer stationNumber) {
         if (this.fireStationRepository.findByStationNumber(stationNumber).isEmpty()) {
-            throw new ClientException("Fire station(s) do not exist");
+            throw new EntityNotFoundException("Fire station(s) do not exist");
         }
         return fireStationRepository.deleteByStationNumber(stationNumber);
     }
@@ -42,7 +43,7 @@ public class FireStationServiceImpl implements FireStationService {
     @Override
     public boolean deleteByAddress(String address) {
         if (this.fireStationRepository.findByAddress(address).isEmpty()) {
-            throw new ClientException("Fire station does not exist");
+            throw new EntityNotFoundException("Fire station does not exist");
         }
         return fireStationRepository.deleteByAddress(address);
     }

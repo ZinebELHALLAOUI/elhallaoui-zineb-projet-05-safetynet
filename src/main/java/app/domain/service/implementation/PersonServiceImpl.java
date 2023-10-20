@@ -3,14 +3,20 @@ package app.domain.service.implementation;
 import app.domain.model.Person;
 import app.domain.repository.PersonRepository;
 import app.domain.service.PersonService;
-import app.domain.service.exception.ClientException;
+import app.domain.service.exception.EntityNotFoundException;
+import app.domain.service.exception.EntityAlreadyExistException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
+
 @Service
 public class PersonServiceImpl implements PersonService {
+    private static final Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class);
 
     private final PersonRepository personRepository;
 
@@ -48,7 +54,7 @@ public class PersonServiceImpl implements PersonService {
     public Set<Person> getPersonsByCity(String city) {
         return personRepository.getAll()
                 .stream()
-                .filter(person -> person.getCity().equals(city))
+                .filter(person -> city.equals(person.getCity()))
                 .collect(Collectors.toSet());
     }
 
@@ -56,8 +62,8 @@ public class PersonServiceImpl implements PersonService {
     public Set<Person> getChildrenByAddress(String address) {
         return personRepository.getAll()
                 .stream()
-                .filter(person -> person.getAddress().equals(address))
-                .filter(person -> person.isMinor())
+                .filter(person -> address.equals(person.getAddress()))
+                .filter(person -> person.getBirthdate() != null && person.isMinor())
                 .collect(Collectors.toSet());
     }
 
@@ -65,14 +71,15 @@ public class PersonServiceImpl implements PersonService {
     public Set<Person> getPersonsByAddress(String address) {
         return personRepository.getAll()
                 .stream()
-                .filter(person -> person.getAddress().equals(address))
+                .filter(person -> address.equals(person.getAddress()))
                 .collect(Collectors.toSet());
     }
 
     @Override
     public Person addPerson(Person person) {
         if (personRepository.findPersonById(person.getId()).isPresent()) {
-            throw new ClientException("Person already exists");
+
+            throw new EntityAlreadyExistException("Person already exists");
         }
         return personRepository.addPerson(person);
     }
@@ -80,7 +87,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person updatePerson(Person person) {
         if (personRepository.findPersonById(person.getId()).isEmpty()) {
-            throw new ClientException("Person not exist");
+            throw new EntityNotFoundException("Person does not exist");
         }
         return personRepository.updatePerson(person);
     }
@@ -88,19 +95,23 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public boolean deletePersonById(String personId) {
         if (personRepository.findPersonById(personId).isEmpty()) {
-            throw new ClientException("Person not exist");
+            throw new EntityNotFoundException("Person does not exist");
         }
-        personRepository.deletePersonById(personId);
-        return this.deleteMedicalRecordById(personId);
+        final String medicalRecordId = personId;
+        if (personRepository.isExistsMedicalRecordById(medicalRecordId)) {
+            this.deleteMedicalRecordById(personId);
+        }
+        return personRepository.deletePersonById(personId);
+
     }
 
     @Override
     public Person addMedicalRecordOfPerson(Person personWithMedicalRecord) {
         if (personRepository.findPersonById(personWithMedicalRecord.getId()).isEmpty()) {
-            throw new ClientException("Person not exist");
+            throw new EntityNotFoundException("Person does not exist");
         }
         if (personRepository.isExistsMedicalRecordById(personWithMedicalRecord.getMedicalRecord().getId())) {
-            throw new ClientException("Medical record already exists");
+            throw new EntityAlreadyExistException("Medical record already exists");
         }
         return personRepository.addMedicalRecordOfPerson(personWithMedicalRecord);
     }
@@ -108,7 +119,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public boolean deleteMedicalRecordById(String medicalRecordId) {
         if (!personRepository.isExistsMedicalRecordById(medicalRecordId)) {
-            throw new ClientException("Medical record does not exist");
+            throw new EntityNotFoundException("Medical record does not exist");
         }
         return personRepository.deleteMedicalRecordOfPersonById(medicalRecordId);
     }
@@ -116,7 +127,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person updateMedicalRecordOfPerson(Person personWithMedicalRecord) {
         if (!personRepository.isExistsMedicalRecordById(personWithMedicalRecord.getId())) {
-            throw new ClientException("Medical record does not exist");
+            throw new EntityNotFoundException("Medical record does not exist");
         }
         return personRepository.updateMedicalRecordOfPerson(personWithMedicalRecord);
     }

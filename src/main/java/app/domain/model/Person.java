@@ -1,6 +1,6 @@
 package app.domain.model;
 
-import app.domain.service.exception.ClientException;
+import app.domain.service.exception.EntityAlreadyExistException;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -28,7 +28,7 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
         if (this.firstName == null || this.lastName == null || this.firstName.isBlank() || this.lastName.isBlank())
-            throw new ClientException("Firstname and Lastname are required");
+            throw new EntityAlreadyExistException("Firstname and Lastname are required");
         this.address = address;
         this.city = city;
         this.zip = zip;
@@ -43,8 +43,8 @@ public class Person {
     public Person(String firstName, String lastName, String address, String city, String zip, Phone phone, Email email) {
         this.firstName = firstName;
         this.lastName = lastName;
-        if (this.firstName == null || this.lastName == null || this.firstName.isBlank() || this.lastName.isBlank())
-            throw new ClientException("Firstname and Lastname are required");
+//        if (this.firstName == null || this.lastName == null || this.firstName.isBlank() || this.lastName.isBlank())
+//            throw new PersonServiceRequestException("Firstname and Lastname are required");
         this.address = address;
         this.city = city;
         this.zip = zip;
@@ -57,7 +57,7 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
         if (this.firstName == null || this.lastName == null || this.firstName.isBlank() || this.lastName.isBlank())
-            throw new ClientException("Firstname and Lastname are required");
+            throw new EntityAlreadyExistException("Firstname and Lastname are required");
         this.birthdate = LocalDate.parse(birthdate, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         this.id = generateIdFromFirstnameAndLastname();
         this.medicalRecord = new MedicalRecord(id, new HashSet<>(medications), new HashSet<>(allergies));
