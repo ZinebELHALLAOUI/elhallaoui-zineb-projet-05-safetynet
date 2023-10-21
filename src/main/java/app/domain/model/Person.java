@@ -174,5 +174,20 @@ public class Person {
                 .toLowerCase(Locale.ROOT);
     }
 
-
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", zip='" + zip + '\'' +
+                ", phone=" + phone +
+                ", email=" + email +
+                ", birthdate=" + birthdate +
+                ", medicalRecord=" + medicalRecord +
+                ", fireStation=" + fireStation +
+                '}';
+    }
 }

@@ -1,11 +1,9 @@
 package app.domain.service.implementation;
 
-import app.domain.model.FireStation;
-import app.domain.model.MedicalRecord;
-import app.domain.model.Person;
+import app.domain.model.*;
 import app.domain.repository.PersonRepository;
-import app.domain.service.exception.EntityNotFoundException;
 import app.domain.service.exception.EntityAlreadyExistException;
+import app.domain.service.exception.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,10 +33,10 @@ public class PersonServiceImplTest {
         //given
         when(personRepository.getAll()).thenReturn(
                 List.of(
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(1, "bar")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(3, "foo")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, null)
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(1, "bar")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), null, null, new FireStation(3, "toto")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(3, "foo")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"))
                 )
         );
 
@@ -56,10 +54,10 @@ public class PersonServiceImplTest {
         //given
         when(personRepository.getAll()).thenReturn(
                 List.of(
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(1, "bar")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(2, "toto")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(6, "foo")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, null)
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(1, "bar")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "toto")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(6, "foo")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, null)
                 )
         );
 
@@ -75,10 +73,10 @@ public class PersonServiceImplTest {
         //given
         when(personRepository.getAll()).thenReturn(
                 List.of(
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(1, "bar")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(2, "foo")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, null)
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(1, "bar")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(3, "toto")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, null)
                 )
         );
 
@@ -96,9 +94,9 @@ public class PersonServiceImplTest {
         //given
         when(personRepository.getAll()).thenReturn(
                 List.of(
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(5, "bar")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(7, "toto")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, null)
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(5, "bar")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(7, "toto")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, null)
                 )
         );
 
@@ -114,8 +112,8 @@ public class PersonServiceImplTest {
         //given
         when(personRepository.getAll()).thenReturn(
                 List.of(
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(1, "bar")),
-                        new Person("fake2", "fake2", null, null, null, null, null, null, null, new FireStation(3, "toto"))
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(1, "bar")),
+                        new Person("fake2", "fake2", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(3, "toto"))
                 )
         );
 
@@ -131,10 +129,10 @@ public class PersonServiceImplTest {
         //given
         when(personRepository.getAll()).thenReturn(
                 List.of(
-                        new Person("foo", "fake", null, null, null, null, null, null, null, new FireStation(1, "bar")),
-                        new Person("foo", "bar", null, null, null, null, null, null, null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(2, "foo")),
-                        new Person("fake", "bar", null, null, null, null, null, null, null, null)
+                        new Person("foo", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(1, "bar")),
+                        new Person("foo", "bar", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(3, "toto")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo")),
+                        new Person("fake", "bar", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, null)
                 )
         );
 
@@ -155,7 +153,7 @@ public class PersonServiceImplTest {
                         new Person("fake", "fake", null, "xCity", null, null, null, null, null, new FireStation(1, "bar")),
                         new Person("fake", "fake", null, "xCity", null, null, null, null, null, new FireStation(3, "toto")),
                         new Person("fake", "fake", null, "fake", null, null, null, null, null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(2, "foo"))
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo"))
                 )
         );
 
@@ -175,7 +173,7 @@ public class PersonServiceImplTest {
                 List.of(
                         new Person("fake", "fake", null, "fake", null, null, null, null, null, new FireStation(1, "bar")),
                         new Person("fake", "fake", null, "fake2", null, null, null, null, null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(2, "foo"))
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo"))
                 )
         );
 
@@ -194,7 +192,7 @@ public class PersonServiceImplTest {
                         new Person("fake", "fake", "fake", "xCity", null, null, null, null, null, new FireStation(1, "bar")),
                         new Person("fake", "fake", "xAddress", "xCity", null, null, null, null, null, new FireStation(3, "toto")),
                         new Person("fake", "fake", "xAddress", "fake", null, null, null, null, null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(2, "foo"))
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo"))
                 )
         );
 
@@ -214,7 +212,7 @@ public class PersonServiceImplTest {
                 List.of(
                         new Person("fake", "fake", "fake", "xCity", null, null, null, null, null, new FireStation(1, "bar")),
                         new Person("fake", "fake", "fake2", "xCity", null, null, null, null, null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(2, "foo"))
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo"))
                 )
         );
 
@@ -234,7 +232,7 @@ public class PersonServiceImplTest {
                         new Person("fake", "fake", "xAddress", "xCity", null, null, null, LocalDate.now(), null, new FireStation(3, "toto")),
                         new Person("fake", "fake", "xAddress", "fake", null, null, null, LocalDate.now().minusYears(20), null, new FireStation(3, "toto")),
                         new Person("fake", "fake", "xAddress", null, null, null, null, null, null, new FireStation(2, "foo")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(2, "foo")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo")),
                         new Person("fake", "fake", null, null, null, null, null, LocalDate.now(), null, new FireStation(2, "foo"))
                 )
         );
@@ -256,7 +254,7 @@ public class PersonServiceImplTest {
                         new Person("fake", "fake", "fake", "xCity", null, null, null, LocalDate.now(), null, new FireStation(1, "bar")),
                         new Person("fake", "fake", "xAddress", "fake", null, null, null, LocalDate.now().minusYears(20), null, new FireStation(3, "toto")),
                         new Person("fake", "fake", "xAddress", null, null, null, null, null, null, new FireStation(2, "foo")),
-                        new Person("fake", "fake", null, null, null, null, null, null, null, new FireStation(2, "foo")),
+                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo")),
                         new Person("fake", "fake", null, null, null, null, null, LocalDate.now(), null, new FireStation(2, "foo"))
                 )
         );
@@ -388,7 +386,7 @@ public class PersonServiceImplTest {
     @Test
     public void should_add_medical_record_when_medical_record_does_not_exist() {
         //given
-        final Person personWithMedicalRecord = new Person("fake", "fake", "fake", "xCity", null, null, null, LocalDate.now(), new MedicalRecord("fake", "fake", List.of(), List.of()), new FireStation(1, "bar"));
+        final Person personWithMedicalRecord = new Person("fake", "fake", "03/06/2014", List.of("fake", "fake"), List.of("fake", "fake"));
         when(personRepository.findPersonById(personWithMedicalRecord.getId())).thenReturn(Optional.of(personWithMedicalRecord));
         when(personRepository.isExistsMedicalRecordById(personWithMedicalRecord.getId())).thenReturn(false);
 
@@ -427,7 +425,7 @@ public class PersonServiceImplTest {
     @Test
     public void should_throw_exception_when_updating_not_existing_medical_record() {
         //given
-        final Person personWithMedicalRecord = new Person("fake", "fake", "fake", "xCity", null, null, null, LocalDate.now(), new MedicalRecord("fake", "fake", List.of(), List.of()), new FireStation(1, "bar"));
+        final Person personWithMedicalRecord = new Person("fake", "fake", "03/06/2014", List.of("fake", "fake"), List.of("fake", "fake"));
         when(personRepository.isExistsMedicalRecordById(personWithMedicalRecord.getId())).thenReturn(false);
 
         //when then
@@ -439,7 +437,7 @@ public class PersonServiceImplTest {
     @Test
     public void should_updating_existing_medical_record() {
         //given
-        final Person personWithMedicalRecord = new Person("fake", "fake", "fake", "xCity", null, null, null, LocalDate.now(), new MedicalRecord("fake", "fake", List.of(), List.of()), new FireStation(1, "bar"));
+        final Person personWithMedicalRecord = new Person("fake", "fake", "03/06/2014", List.of("fake", "fake"), List.of("fake", "fake"));
         when(personRepository.isExistsMedicalRecordById(personWithMedicalRecord.getId())).thenReturn(true);
 
         //when

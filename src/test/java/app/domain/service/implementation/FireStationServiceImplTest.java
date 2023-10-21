@@ -18,7 +18,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class FireStationServiceImplTest {
+public class FireStationServiceImplTest {
     @Mock
     private FireStationRepository fireStationRepository;
 
