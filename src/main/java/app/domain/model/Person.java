@@ -18,13 +18,13 @@ public class Person {
     private String address;
     private String city;
     private String zip;
-    private Phone phone;
-    private Email email;
+    private String phone;
+    private String email;
     private LocalDate birthdate;
     private MedicalRecord medicalRecord = null;
     private FireStation fireStation = null;
 
-    public Person(String firstName, String lastName, String address, String city, String zip, Phone phone, Email email, LocalDate birthdate, MedicalRecord medicalRecord, FireStation fireStation) {
+    public Person(String firstName, String lastName, String address, String city, String zip, String phone, String email, LocalDate birthdate, MedicalRecord medicalRecord, FireStation fireStation) {
         this.firstName = firstName;
         this.lastName = lastName;
         if (this.firstName == null || this.lastName == null || this.firstName.isBlank() || this.lastName.isBlank())
@@ -40,7 +40,7 @@ public class Person {
         this.id = generateIdFromFirstnameAndLastname();
     }
 
-    public Person(String firstName, String lastName, String address, String city, String zip, Phone phone, Email email) {
+    public Person(String firstName, String lastName, String address, String city, String zip, String phone, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
 //        if (this.firstName == null || this.lastName == null || this.firstName.isBlank() || this.lastName.isBlank())
@@ -99,19 +99,19 @@ public class Person {
         this.zip = zip;
     }
 
-    public Phone getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Phone phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public Email getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Email email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

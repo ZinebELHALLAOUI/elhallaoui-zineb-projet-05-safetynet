@@ -99,6 +99,7 @@
                         <exclude>app/SafetyNetAlertApp.java</exclude>
                         <exclude>app/infrastructure/config/**</exclude>
                         <exclude>app/infrastructure/controller/advice/**</exclude>
+                        <exclude>app/infrastructure/controller/interceptor/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>

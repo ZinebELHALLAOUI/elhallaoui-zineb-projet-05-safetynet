@@ -1,9 +1,7 @@
 package app.infrastructure.mapper;
 
-import app.domain.model.Email;
 import app.domain.model.MedicalRecord;
 import app.domain.model.Person;
-import app.domain.model.Phone;
 import app.infrastructure.controller.dto.medicalRecord.MedicalRecordResponse;
 import app.infrastructure.controller.dto.person.*;
 import app.infrastructure.entity.MedicalRecordEntity;
@@ -20,9 +18,9 @@ public class PersonMapper {
         entity.setLastName(person.getLastName());
         entity.setAddress(person.getAddress());
         entity.setCity(person.getCity());
-        entity.setPhone(person.getPhone().getNumber());
+        entity.setPhone(person.getPhone());
         entity.setZip(person.getZip());
-        entity.setEmail(person.getEmail().getMail());
+        entity.setEmail(person.getEmail());
         return entity;
     }
 
@@ -34,8 +32,8 @@ public class PersonMapper {
                 personAddRequest.getAddress(),
                 personAddRequest.getCity(),
                 personAddRequest.getZip(),
-                new Phone(personAddRequest.getPhone()),
-                new Email(personAddRequest.getEmail())
+                personAddRequest.getPhone(),
+                personAddRequest.getEmail()
         );
         return person;
     }
@@ -47,9 +45,9 @@ public class PersonMapper {
         response.setLastName(person.getLastName());
         response.setAddress(person.getAddress());
         response.setCity(person.getCity());
-        response.setPhone(person.getPhone().getNumber());
+        response.setPhone(person.getPhone());
         response.setZip(person.getZip());
-        response.setEmail(person.getEmail().getMail());
+        response.setEmail(person.getEmail());
         return response;
     }
 
@@ -91,7 +89,7 @@ public class PersonMapper {
                     PersonByFireStation personByFireStation = new PersonByFireStation();
                     personByFireStation.setFirstName(person.getFirstName());
                     personByFireStation.setLastName(person.getLastName());
-                    personByFireStation.setPhone(person.getPhone().getNumber());
+                    personByFireStation.setPhone(person.getPhone());
                     personByFireStation.setAddress(person.getAddress());
                     return personByFireStation;
                 }).toList();
@@ -135,7 +133,7 @@ public class PersonMapper {
                     personFire.setFirstname(person.getFirstName());
                     personFire.setLastname(person.getLastName());
                     personFire.setAge(person.getAge());
-                    personFire.setPhone(person.getPhone().getNumber());
+                    personFire.setPhone(person.getPhone());
                     if (person.getFireStation() != null)
                         personFire.setFireStationNumber(String.valueOf(person.getFireStation().getStationNumber()));
                     Set<String> allergies = person.getMedicalRecord().getAllergies();
@@ -151,7 +149,7 @@ public class PersonMapper {
 
 
     public static List<String> personsToEmails(Set<Person> persons) {
-        return persons.stream().map(person -> person.getEmail().getMail()).toList();
+        return persons.stream().map(person -> person.getEmail()).toList();
     }
 
 
@@ -162,7 +160,7 @@ public class PersonMapper {
             personInfo.setLastName(person.getLastName());
             personInfo.setAge(person.getAge());
             personInfo.setAddress(person.getAddress());
-            personInfo.setEmail(person.getEmail().getMail());
+            personInfo.setEmail(person.getEmail());
             Set<String> medications = person.getMedicalRecord().getMedications();
             Set<String> allergies = person.getMedicalRecord().getAllergies();
             List<String> medicalRecords = new ArrayList<>(allergies);
@@ -188,7 +186,7 @@ public class PersonMapper {
                                     personFlood.setFirstName(p.getFirstName());
                                     personFlood.setLastName(p.getLastName());
                                     personFlood.setAge(p.getAge());
-                                    personFlood.setPhone(p.getPhone().getNumber());
+                                    personFlood.setPhone(p.getPhone());
                                     Set<String> medications = p.getMedicalRecord().getMedications();
                                     Set<String> allergies = p.getMedicalRecord().getAllergies();
                                     List<String> medicalRecords = new ArrayList<>(allergies);

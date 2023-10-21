@@ -6,6 +6,7 @@ import app.infrastructure.entity.FireStationEntity;
 import app.infrastructure.mapper.FireStationMapper;
 import org.springframework.stereotype.Repository;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -13,6 +14,15 @@ import java.util.stream.Collectors;
 
 @Repository
 public class FireStationJsonRepository extends SafetyNetAlertDataJsonRepository implements FireStationRepository {
+
+    public FireStationJsonRepository() {
+        super();
+    }
+
+    FireStationJsonRepository(final File jsonFilePath) {
+        super(jsonFilePath);
+    }
+
     @Override
     public Optional<FireStation> findByAddress(String address) {
         return this.safetyNetAlertData.getFirestations()

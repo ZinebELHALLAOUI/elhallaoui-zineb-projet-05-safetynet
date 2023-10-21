@@ -1,6 +1,8 @@
 package app.infrastructure.repository;
 
-import app.domain.model.*;
+import app.domain.model.FireStation;
+import app.domain.model.MedicalRecord;
+import app.domain.model.Person;
 import app.domain.repository.PersonRepository;
 import app.infrastructure.entity.FireStationEntity;
 import app.infrastructure.entity.MedicalRecordEntity;
@@ -38,8 +40,8 @@ public class PersonJsonRepository extends SafetyNetAlertDataJsonRepository imple
                             final String address = personEntity.getAddress();
                             final String city = personEntity.getCity();
                             final String zip = personEntity.getZip();
-                            final Phone phone = personEntity.getPhone().isBlank() ? null : new Phone(personEntity.getPhone());
-                            final Email email = personEntity.getEmail().isBlank() ? null : new Email(personEntity.getEmail());
+                            final String phone = personEntity.getPhone();
+                            final String email = personEntity.getEmail();
                             Optional<MedicalRecordEntity> medicalRecordByPerson = this.findMedicalRecordByPerson(personEntity);
                             MedicalRecord medicalRecord = medicalRecordByPerson.map(entity -> PersonMapper.entityToMedicalRecord(entity)).orElse(null);
                             final LocalDate birthDate = medicalRecordByPerson

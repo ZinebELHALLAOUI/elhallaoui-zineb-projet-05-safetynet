@@ -8,7 +8,7 @@ public class PersonAddRequest {
     @NotEmpty(message = "Votre nom doit être renseigné")
     private String firstName;
     @NotEmpty(message = "Votre prénom doit être renseigné")
-    private String lastName; // notempty (validat
+    private String lastName;
     private String address;
     private String city;
     private String zip;

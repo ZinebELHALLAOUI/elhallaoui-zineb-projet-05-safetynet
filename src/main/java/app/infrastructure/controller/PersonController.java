@@ -62,7 +62,7 @@ public class PersonController {
     public ResponseEntity<List<String>> getPhoneAlert(@RequestParam int firestation) {
         logger.info("Requested firestation : " + firestation);
         Set<Person> personsByFireStationNumber = personService.getPersonsByFireStationNumber(firestation);
-        return ResponseEntity.ok(personsByFireStationNumber.stream().map(person -> person.getPhone().getNumber()).toList());
+        return ResponseEntity.ok(personsByFireStationNumber.stream().map(person -> person.getPhone()).toList());
     }
 
 

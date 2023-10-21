@@ -1,6 +1,8 @@
 package app.domain.service.implementation;
 
-import app.domain.model.*;
+import app.domain.model.FireStation;
+import app.domain.model.MedicalRecord;
+import app.domain.model.Person;
 import app.domain.repository.PersonRepository;
 import app.domain.service.exception.EntityAlreadyExistException;
 import app.domain.service.exception.EntityNotFoundException;
@@ -33,10 +35,10 @@ public class PersonServiceImplTest {
         //given
         when(personRepository.getAll()).thenReturn(
                 List.of(
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(1, "bar")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), null, null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(3, "foo")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"))
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(1, "bar")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", null, null, new FireStation(3, "toto")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(3, "foo")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com")
                 )
         );
 
@@ -54,10 +56,10 @@ public class PersonServiceImplTest {
         //given
         when(personRepository.getAll()).thenReturn(
                 List.of(
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(1, "bar")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "toto")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(6, "foo")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, null)
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(1, "bar")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(2, "toto")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(6, "foo")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, null)
                 )
         );
 
@@ -73,10 +75,10 @@ public class PersonServiceImplTest {
         //given
         when(personRepository.getAll()).thenReturn(
                 List.of(
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(1, "bar")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, null)
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(1, "bar")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(3, "toto")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(2, "foo")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, null)
                 )
         );
 
@@ -94,9 +96,9 @@ public class PersonServiceImplTest {
         //given
         when(personRepository.getAll()).thenReturn(
                 List.of(
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(5, "bar")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(7, "toto")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, null)
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(5, "bar")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(7, "toto")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, null)
                 )
         );
 
@@ -112,8 +114,8 @@ public class PersonServiceImplTest {
         //given
         when(personRepository.getAll()).thenReturn(
                 List.of(
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(1, "bar")),
-                        new Person("fake2", "fake2", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(3, "toto"))
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(1, "bar")),
+                        new Person("fake2", "fake2", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(3, "toto"))
                 )
         );
 
@@ -129,10 +131,10 @@ public class PersonServiceImplTest {
         //given
         when(personRepository.getAll()).thenReturn(
                 List.of(
-                        new Person("foo", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(1, "bar")),
-                        new Person("foo", "bar", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo")),
-                        new Person("fake", "bar", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, null)
+                        new Person("foo", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(1, "bar")),
+                        new Person("foo", "bar", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(3, "toto")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(2, "foo")),
+                        new Person("fake", "bar", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, null)
                 )
         );
 
@@ -153,7 +155,7 @@ public class PersonServiceImplTest {
                         new Person("fake", "fake", null, "xCity", null, null, null, null, null, new FireStation(1, "bar")),
                         new Person("fake", "fake", null, "xCity", null, null, null, null, null, new FireStation(3, "toto")),
                         new Person("fake", "fake", null, "fake", null, null, null, null, null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo"))
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(2, "foo"))
                 )
         );
 
@@ -173,7 +175,7 @@ public class PersonServiceImplTest {
                 List.of(
                         new Person("fake", "fake", null, "fake", null, null, null, null, null, new FireStation(1, "bar")),
                         new Person("fake", "fake", null, "fake2", null, null, null, null, null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo"))
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(2, "foo"))
                 )
         );
 
@@ -192,7 +194,7 @@ public class PersonServiceImplTest {
                         new Person("fake", "fake", "fake", "xCity", null, null, null, null, null, new FireStation(1, "bar")),
                         new Person("fake", "fake", "xAddress", "xCity", null, null, null, null, null, new FireStation(3, "toto")),
                         new Person("fake", "fake", "xAddress", "fake", null, null, null, null, null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo"))
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(2, "foo"))
                 )
         );
 
@@ -212,7 +214,7 @@ public class PersonServiceImplTest {
                 List.of(
                         new Person("fake", "fake", "fake", "xCity", null, null, null, null, null, new FireStation(1, "bar")),
                         new Person("fake", "fake", "fake2", "xCity", null, null, null, null, null, new FireStation(3, "toto")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo"))
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(2, "foo"))
                 )
         );
 
@@ -232,7 +234,7 @@ public class PersonServiceImplTest {
                         new Person("fake", "fake", "xAddress", "xCity", null, null, null, LocalDate.now(), null, new FireStation(3, "toto")),
                         new Person("fake", "fake", "xAddress", "fake", null, null, null, LocalDate.now().minusYears(20), null, new FireStation(3, "toto")),
                         new Person("fake", "fake", "xAddress", null, null, null, null, null, null, new FireStation(2, "foo")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(2, "foo")),
                         new Person("fake", "fake", null, null, null, null, null, LocalDate.now(), null, new FireStation(2, "foo"))
                 )
         );
@@ -254,7 +256,7 @@ public class PersonServiceImplTest {
                         new Person("fake", "fake", "fake", "xCity", null, null, null, LocalDate.now(), null, new FireStation(1, "bar")),
                         new Person("fake", "fake", "xAddress", "fake", null, null, null, LocalDate.now().minusYears(20), null, new FireStation(3, "toto")),
                         new Person("fake", "fake", "xAddress", null, null, null, null, null, null, new FireStation(2, "foo")),
-                        new Person("fake", "fake", "address", "paris", "75000", new Phone("841-874-7512"), new Email("test@email.com"), LocalDate.now(), null, new FireStation(2, "foo")),
+                        new Person("fake", "fake", "address", "paris", "75000", "841-874-7512", "test@email.com", LocalDate.now(), null, new FireStation(2, "foo")),
                         new Person("fake", "fake", null, null, null, null, null, LocalDate.now(), null, new FireStation(2, "foo"))
                 )
         );
