@@ -12,4 +12,11 @@ public class PersonsWithFireStationAndMedicalRecordResponse {
     public void setPersonsWithFireStationAndMedicalRecords(List<PersonWithFireStationAndMedicalRecord> personsWithFireStationAndMedicalRecords) {
         this.personsWithFireStationAndMedicalRecords = personsWithFireStationAndMedicalRecords;
     }
+
+    @Override
+    public String toString() {
+        return "PersonsWithFireStationAndMedicalRecordResponse{" +
+                "personsWithFireStationAndMedicalRecords=" + personsWithFireStationAndMedicalRecords +
+                '}';
+    }
 }

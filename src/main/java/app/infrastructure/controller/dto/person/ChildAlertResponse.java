@@ -12,4 +12,11 @@ public class ChildAlertResponse {
     public void setChildrenAlert(List<ChildAlert> childrenAlert) {
         this.childrenAlert = childrenAlert;
     }
+
+    @Override
+    public String toString() {
+        return "ChildAlertResponse{" +
+                "childrenAlert=" + childrenAlert +
+                '}';
+    }
 }

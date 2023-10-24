@@ -49,7 +49,6 @@ public class PersonController {
         return ResponseEntity.ok().build();
     }
 
-
     @GetMapping("/childAlert")
     public ResponseEntity<ChildAlertResponse> getChildAlert(@RequestParam String address) {
         logger.info("Requested address : " + address);
@@ -65,9 +64,8 @@ public class PersonController {
         return ResponseEntity.ok(personsByFireStationNumber.stream().map(person -> person.getPhone()).toList());
     }
 
-
     @GetMapping("/fire")
-    public ResponseEntity<PersonsWithFireStationAndMedicalRecordResponse> getPersonByAddress(@RequestParam String address) {
+    public ResponseEntity<PersonsWithFireStationAndMedicalRecordResponse> getPersonsByAddress(@RequestParam String address) {
         logger.info("Requested address : " + address);
         Set<Person> personsByAddress = personService.getPersonsByAddress(address);
         PersonsWithFireStationAndMedicalRecordResponse response =
@@ -75,9 +73,8 @@ public class PersonController {
         return ResponseEntity.ok(response);
     }
 
-
     @GetMapping("/communityEmail")
-    public ResponseEntity<List<String>> getPersonsEmailByCity(@RequestParam String city) {
+    public ResponseEntity<List<String>> getPersonsEmailsByCity(@RequestParam String city) {
         Set<Person> personsByCity = this.personService.getPersonsByCity(city);
         return ResponseEntity.ok(PersonMapper.personsToEmails(personsByCity));
     }
@@ -96,6 +93,5 @@ public class PersonController {
         PersonsFloodResponse response = PersonMapper.personsToPersonsFloodResponse(persons);
         return ResponseEntity.ok(response);
     }
-
 
 }

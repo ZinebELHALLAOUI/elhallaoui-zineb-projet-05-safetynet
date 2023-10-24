@@ -39,4 +39,14 @@ public class ChildAlert {
     public void setMembers(List<PersonDto> members) {
         this.members = members;
     }
+
+    @Override
+    public String toString() {
+        return "ChildAlert{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", members=" + members +
+                '}';
+    }
 }

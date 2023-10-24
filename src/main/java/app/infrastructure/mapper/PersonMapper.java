@@ -136,11 +136,13 @@ public class PersonMapper {
                     personFire.setPhone(person.getPhone());
                     if (person.getFireStation() != null)
                         personFire.setFireStationNumber(String.valueOf(person.getFireStation().getStationNumber()));
-                    Set<String> allergies = person.getMedicalRecord().getAllergies();
-                    Set<String> medications = person.getMedicalRecord().getMedications();
-                    List<String> medicalRecords = new ArrayList<>(allergies);
-                    medicalRecords.addAll(medications);
-                    personFire.setMedicalRecords(medicalRecords);
+                    if (person.getMedicalRecord() != null) {
+                        Set<String> allergies = person.getMedicalRecord().getAllergies();
+                        Set<String> medications = person.getMedicalRecord().getMedications();
+                        List<String> medicalRecords = new ArrayList<>(allergies);
+                        medicalRecords.addAll(medications);
+                        personFire.setMedicalRecords(medicalRecords);
+                    }
                     return personFire;
                 }).toList();
         response.setPersonsWithFireStationAndMedicalRecords(personWithFireStationAndMedicalRecords);

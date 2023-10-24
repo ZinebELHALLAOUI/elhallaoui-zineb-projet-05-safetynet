@@ -30,4 +30,13 @@ public class PersonsByFireStationResponse {
     public void setNumberOfMinors(long numberOfMinors) {
         this.numberOfMinors = numberOfMinors;
     }
+
+    @Override
+    public String toString() {
+        return "PersonsByFireStationResponse{" +
+                "persons=" + persons +
+                ", numberOfAdults=" + numberOfAdults +
+                ", numberOfMinors=" + numberOfMinors +
+                '}';
+    }
 }

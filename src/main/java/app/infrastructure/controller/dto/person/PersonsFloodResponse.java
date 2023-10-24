@@ -12,4 +12,11 @@ public class PersonsFloodResponse {
     public void setPersonsFloods(List<PersonsFloodByAddress> personsFloodByAddresses) {
         this.personsFloodByAddresses = personsFloodByAddresses;
     }
+
+    @Override
+    public String toString() {
+        return "PersonsFloodResponse{" +
+                "personsFloodByAddresses=" + personsFloodByAddresses +
+                '}';
+    }
 }

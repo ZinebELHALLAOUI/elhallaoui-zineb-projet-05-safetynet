@@ -21,4 +21,12 @@ public class PersonsFloodByAddress {
     public void setPersonsFlood(List<PersonFlood> personsFlood) {
         this.personsFlood = personsFlood;
     }
+
+    @Override
+    public String toString() {
+        return "PersonsFloodByAddress{" +
+                "Address='" + Address + '\'' +
+                ", personsFlood=" + personsFlood +
+                '}';
+    }
 }

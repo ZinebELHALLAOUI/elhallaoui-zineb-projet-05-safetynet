@@ -57,4 +57,16 @@ public class PersonWithFireStationAndMedicalRecord {
     public void setFireStationNumber(String fireStationNumber) {
         this.fireStationNumber = fireStationNumber;
     }
+
+    @Override
+    public String toString() {
+        return "PersonWithFireStationAndMedicalRecord{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", age=" + age +
+                ", fireStationNumber='" + fireStationNumber + '\'' +
+                ", medicalRecords=" + medicalRecords +
+                '}';
+    }
 }

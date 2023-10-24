@@ -48,4 +48,15 @@ public class PersonFlood {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    @Override
+    public String toString() {
+        return "PersonFlood{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", phone='" + phone + '\'' +
+                ", medicalRecords=" + medicalRecords +
+                '}';
+    }
 }
