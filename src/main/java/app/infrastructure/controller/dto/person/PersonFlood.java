@@ -49,14 +49,4 @@ public class PersonFlood {
         this.phone = phone;
     }
 
-    @Override
-    public String toString() {
-        return "PersonFlood{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                ", phone='" + phone + '\'' +
-                ", medicalRecords=" + medicalRecords +
-                '}';
-    }
 }

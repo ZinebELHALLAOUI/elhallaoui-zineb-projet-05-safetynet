@@ -38,13 +38,4 @@ public class PersonByFireStation {
         this.phone = phone;
     }
 
-    @Override
-    public String toString() {
-        return "PersonByFireStation{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
-    }
 }

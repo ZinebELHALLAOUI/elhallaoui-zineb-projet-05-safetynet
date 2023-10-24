@@ -58,15 +58,4 @@ public class PersonInfo {
         this.medicalRecords = medicalRecords;
     }
 
-    @Override
-    public String toString() {
-        return "PersonInfo{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                ", medicalRecords=" + medicalRecords +
-                '}';
-    }
 }

@@ -13,10 +13,4 @@ public class PersonsWithFireStationAndMedicalRecordResponse {
         this.personsWithFireStationAndMedicalRecords = personsWithFireStationAndMedicalRecords;
     }
 
-    @Override
-    public String toString() {
-        return "PersonsWithFireStationAndMedicalRecordResponse{" +
-                "personsWithFireStationAndMedicalRecords=" + personsWithFireStationAndMedicalRecords +
-                '}';
-    }
 }

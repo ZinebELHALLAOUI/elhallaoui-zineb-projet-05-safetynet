@@ -31,12 +31,4 @@ public class PersonsByFireStationResponse {
         this.numberOfMinors = numberOfMinors;
     }
 
-    @Override
-    public String toString() {
-        return "PersonsByFireStationResponse{" +
-                "persons=" + persons +
-                ", numberOfAdults=" + numberOfAdults +
-                ", numberOfMinors=" + numberOfMinors +
-                '}';
-    }
 }

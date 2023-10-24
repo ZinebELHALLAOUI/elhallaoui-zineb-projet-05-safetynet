@@ -13,10 +13,4 @@ public class PersonsFloodResponse {
         this.personsFloodByAddresses = personsFloodByAddresses;
     }
 
-    @Override
-    public String toString() {
-        return "PersonsFloodResponse{" +
-                "personsFloodByAddresses=" + personsFloodByAddresses +
-                '}';
-    }
 }

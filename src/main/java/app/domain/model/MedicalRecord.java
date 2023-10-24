@@ -32,15 +32,6 @@ public class MedicalRecord {
         return Objects.hash(id, medications, allergies);
     }
 
-    @Override
-    public String toString() {
-        return "MedicalRecord{" +
-                "Id='" + id + '\'' +
-                ", medications=" + medications +
-                ", allergie=" + allergies +
-                '}';
-    }
-
     public String getId() {
         return id;
     }

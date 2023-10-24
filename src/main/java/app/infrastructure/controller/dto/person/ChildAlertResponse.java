@@ -13,10 +13,4 @@ public class ChildAlertResponse {
         this.childrenAlert = childrenAlert;
     }
 
-    @Override
-    public String toString() {
-        return "ChildAlertResponse{" +
-                "childrenAlert=" + childrenAlert +
-                '}';
-    }
 }

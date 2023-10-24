@@ -80,16 +80,4 @@ public class PersonDto {
         return Objects.hash(firstName, lastName, address, city, zip, phone, email);
     }
 
-    @Override
-    public String toString() {
-        return "PersonDto{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", zip='" + zip + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

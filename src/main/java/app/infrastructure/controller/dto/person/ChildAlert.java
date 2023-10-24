@@ -40,13 +40,4 @@ public class ChildAlert {
         this.members = members;
     }
 
-    @Override
-    public String toString() {
-        return "ChildAlert{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                ", members=" + members +
-                '}';
-    }
 }

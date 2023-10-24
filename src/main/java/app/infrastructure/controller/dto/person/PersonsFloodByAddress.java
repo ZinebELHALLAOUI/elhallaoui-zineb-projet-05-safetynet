@@ -22,11 +22,4 @@ public class PersonsFloodByAddress {
         this.personsFlood = personsFlood;
     }
 
-    @Override
-    public String toString() {
-        return "PersonsFloodByAddress{" +
-                "Address='" + Address + '\'' +
-                ", personsFlood=" + personsFlood +
-                '}';
-    }
 }

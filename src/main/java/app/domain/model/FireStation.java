@@ -32,11 +32,5 @@ public class FireStation {
         return Objects.hash(stationNumber, address);
     }
 
-    @Override
-    public String toString() {
-        return "FireStation{" +
-                "id=" + stationNumber +
-                ", address='" + address + '\'' +
-                '}';
-    }
+
 }
