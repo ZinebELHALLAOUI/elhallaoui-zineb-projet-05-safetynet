@@ -1,6 +1,6 @@
-package app.infrastructure.controller.dto.firestation;
+package app.infrastructure.controller.dto.request;
 
-public class FireStationReponse {
+public class FireStationRequest {
     private Integer stationNumber;
     private String address;
 

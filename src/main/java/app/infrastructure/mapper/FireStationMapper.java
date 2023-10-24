@@ -1,7 +1,7 @@
 package app.infrastructure.mapper;
 
 import app.domain.model.FireStation;
-import app.infrastructure.controller.dto.firestation.FireStationReponse;
+import app.infrastructure.controller.dto.response.FireStationReponse;
 import app.infrastructure.entity.FireStationEntity;
 
 public class FireStationMapper {

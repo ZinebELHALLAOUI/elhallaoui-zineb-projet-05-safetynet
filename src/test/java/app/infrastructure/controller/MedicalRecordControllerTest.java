@@ -2,8 +2,8 @@ package app.infrastructure.controller;
 
 import app.domain.model.Person;
 import app.domain.service.PersonService;
-import app.infrastructure.controller.dto.medicalRecord.MedicalRecordAddRequest;
-import app.infrastructure.controller.dto.medicalRecord.MedicalRecordResponse;
+import app.infrastructure.controller.dto.request.MedicalRecordAddRequest;
+import app.infrastructure.controller.dto.response.MedicalRecordResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

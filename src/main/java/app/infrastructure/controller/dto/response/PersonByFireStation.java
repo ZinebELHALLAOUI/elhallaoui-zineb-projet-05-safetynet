@@ -1,4 +1,6 @@
-package app.infrastructure.controller.dto.person;
+package app.infrastructure.controller.dto.response;
+
+import java.util.Objects;
 
 public class PersonByFireStation {
     private String firstName;
@@ -38,4 +40,16 @@ public class PersonByFireStation {
         this.phone = phone;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonByFireStation that = (PersonByFireStation) o;
+        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(phone, that.phone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, address, phone);
+    }
 }

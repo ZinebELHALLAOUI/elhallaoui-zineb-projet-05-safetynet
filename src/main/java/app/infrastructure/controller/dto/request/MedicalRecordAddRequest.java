@@ -1,4 +1,4 @@
-package app.infrastructure.controller.dto.medicalRecord;
+package app.infrastructure.controller.dto.request;
 
 import java.time.LocalDate;
 import java.util.List;

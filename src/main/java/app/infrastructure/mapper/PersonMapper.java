@@ -2,8 +2,9 @@ package app.infrastructure.mapper;
 
 import app.domain.model.MedicalRecord;
 import app.domain.model.Person;
-import app.infrastructure.controller.dto.medicalRecord.MedicalRecordResponse;
-import app.infrastructure.controller.dto.person.*;
+import app.infrastructure.controller.dto.request.PersonAddRequest;
+import app.infrastructure.controller.dto.response.MedicalRecordResponse;
+import app.infrastructure.controller.dto.response.*;
 import app.infrastructure.entity.MedicalRecordEntity;
 import app.infrastructure.entity.PersonEntity;
 

@@ -1,6 +1,7 @@
-package app.infrastructure.controller.dto.person;
+package app.infrastructure.controller.dto.response;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PersonsByFireStationResponse {
     private List<PersonByFireStation> persons;
@@ -31,4 +32,16 @@ public class PersonsByFireStationResponse {
         this.numberOfMinors = numberOfMinors;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonsByFireStationResponse that = (PersonsByFireStationResponse) o;
+        return numberOfAdults == that.numberOfAdults && numberOfMinors == that.numberOfMinors && Objects.equals(persons, that.persons);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(persons, numberOfAdults, numberOfMinors);
+    }
 }

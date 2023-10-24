@@ -1,6 +1,9 @@
-package app.infrastructure.controller.dto.person;
+package app.infrastructure.controller.dto.response;
+
+import app.infrastructure.controller.dto.response.PersonDto;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ChildAlert {
     private String firstName;
@@ -40,4 +43,16 @@ public class ChildAlert {
         this.members = members;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChildAlert that = (ChildAlert) o;
+        return age == that.age && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(members, that.members);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, age, members);
+    }
 }

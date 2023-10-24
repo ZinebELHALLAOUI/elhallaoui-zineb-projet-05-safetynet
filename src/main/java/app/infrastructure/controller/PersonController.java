@@ -2,7 +2,8 @@ package app.infrastructure.controller;
 
 import app.domain.model.Person;
 import app.domain.service.PersonService;
-import app.infrastructure.controller.dto.person.*;
+import app.infrastructure.controller.dto.request.PersonAddRequest;
+import app.infrastructure.controller.dto.response.*;
 import app.infrastructure.mapper.PersonMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

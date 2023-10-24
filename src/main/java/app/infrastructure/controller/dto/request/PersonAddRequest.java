@@ -1,14 +1,21 @@
-package app.infrastructure.controller.dto.person;
+package app.infrastructure.controller.dto.request;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
-public class PersonDto {
+public class PersonAddRequest {
+    @NotEmpty(message = "Votre nom doit être renseigné")
     private String firstName;
+    @NotEmpty(message = "Votre prénom doit être renseigné")
     private String lastName;
     private String address;
     private String city;
     private String zip;
     private String phone;
+    @NotEmpty (message = "Votre email doit être renseigné")
+    @Email (message = "Votre adresse mail n'est pas valide")
+
     private String email;
 
     public String getFirstName() {
@@ -71,13 +78,12 @@ public class PersonDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PersonDto personDto = (PersonDto) o;
-        return Objects.equals(firstName, personDto.firstName) && Objects.equals(lastName, personDto.lastName) && Objects.equals(address, personDto.address) && Objects.equals(city, personDto.city) && Objects.equals(zip, personDto.zip) && Objects.equals(phone, personDto.phone) && Objects.equals(email, personDto.email);
+        PersonAddRequest that = (PersonAddRequest) o;
+        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(city, that.city) && Objects.equals(zip, that.zip) && Objects.equals(phone, that.phone) && Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName, address, city, zip, phone, email);
     }
-
 }

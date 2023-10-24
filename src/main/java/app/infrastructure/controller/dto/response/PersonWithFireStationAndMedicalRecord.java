@@ -1,6 +1,7 @@
-package app.infrastructure.controller.dto.person;
+package app.infrastructure.controller.dto.response;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PersonWithFireStationAndMedicalRecord {
     private String firstname;
@@ -58,4 +59,16 @@ public class PersonWithFireStationAndMedicalRecord {
         this.fireStationNumber = fireStationNumber;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonWithFireStationAndMedicalRecord that = (PersonWithFireStationAndMedicalRecord) o;
+        return age == that.age && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Objects.equals(phone, that.phone) && Objects.equals(fireStationNumber, that.fireStationNumber) && Objects.equals(medicalRecords, that.medicalRecords);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstname, lastname, phone, age, fireStationNumber, medicalRecords);
+    }
 }
