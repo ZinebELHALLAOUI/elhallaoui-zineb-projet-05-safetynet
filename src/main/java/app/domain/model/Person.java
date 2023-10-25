@@ -24,6 +24,8 @@ public class Person {
     private MedicalRecord medicalRecord = null;
     private FireStation fireStation = null;
 
+    public static final int MAJOR_AGE = 18;
+
     public Person(String firstName, String lastName, String address, String city, String zip, String phone, String email, LocalDate birthdate, MedicalRecord medicalRecord, FireStation fireStation) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -153,7 +155,7 @@ public class Person {
     }
 
     public boolean isMinor() {
-        return this.getAge() <= 18;
+        return this.getAge() <= MAJOR_AGE;
     }
 
     public boolean isMajor() {
