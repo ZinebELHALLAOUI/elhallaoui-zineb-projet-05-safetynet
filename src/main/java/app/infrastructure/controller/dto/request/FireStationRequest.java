@@ -19,4 +19,12 @@ public class FireStationRequest {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "FireStationRequest{" +
+                "stationNumber=" + stationNumber +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

@@ -1,6 +1,5 @@
 package app.infrastructure.controller.dto.request;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class MedicalRecordAddRequest {
@@ -48,5 +47,16 @@ public class MedicalRecordAddRequest {
 
     public void setAllergies(List<String> allergies) {
         this.allergies = allergies;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicalRecordAddRequest{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthdate='" + birthdate + '\'' +
+                ", medications=" + medications +
+                ", allergies=" + allergies +
+                '}';
     }
 }

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -60,11 +61,15 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Set<Person> getChildrenByAddress(String address) {
-        return personRepository.getAll()
+        List<Person> persons = personRepository.getAll();
+        logger.debug("found persons by address : " + persons.size());
+        Set<Person> children = persons
                 .stream()
                 .filter(person -> address.equals(person.getAddress()))
                 .filter(person -> person.getBirthdate() != null && person.isMinor())
                 .collect(Collectors.toSet());
+        logger.debug("found children : " + children.size());
+        return children;
     }
 
     @Override
@@ -78,7 +83,6 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person addPerson(Person person) {
         if (personRepository.findPersonById(person.getId()).isPresent()) {
-
             throw new EntityAlreadyExistException("Person already exists");
         }
         return personRepository.addPerson(person);

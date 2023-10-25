@@ -86,4 +86,17 @@ public class PersonAddRequest {
     public int hashCode() {
         return Objects.hash(firstName, lastName, address, city, zip, phone, email);
     }
+
+    @Override
+    public String toString() {
+        return "PersonAddRequest{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", zip='" + zip + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

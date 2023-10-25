@@ -29,6 +29,7 @@ public class PersonController {
 
     @PostMapping("/person")
     public ResponseEntity<PersonDto> addPerson(@Valid @RequestBody final PersonAddRequest personAddRequest) {
+        logger.info("request :" + personAddRequest);
         Person person = PersonMapper.requestToPerson(personAddRequest);
         Person addedPerson = personService.addPerson(person);
         PersonDto personDto = PersonMapper.personToDto(addedPerson);
@@ -37,6 +38,7 @@ public class PersonController {
 
     @PutMapping("/person")
     public ResponseEntity<PersonDto> updatePerson(@RequestBody final PersonAddRequest personAddRequest) {
+        logger.info("request :" + personAddRequest);
         Person person = PersonMapper.requestToPerson(personAddRequest);
         Person addedPerson = personService.updatePerson(person);
         PersonDto personDto = PersonMapper.personToDto(addedPerson);
@@ -46,6 +48,7 @@ public class PersonController {
 
     @DeleteMapping("/person/{firstName}/{lastName}")
     public ResponseEntity deletePerson(@PathVariable final String firstName, @PathVariable final String lastName) {
+        logger.info("request firstname : " + firstName + " , lastname : " + lastName);
         personService.deletePersonById(Person.generateIdFromFirstnameAndLastname(firstName, lastName));
         return ResponseEntity.ok().build();
     }
@@ -76,12 +79,14 @@ public class PersonController {
 
     @GetMapping("/communityEmail")
     public ResponseEntity<List<String>> getPersonsEmailsByCity(@RequestParam String city) {
+        logger.info("request city : " + city);
         Set<Person> personsByCity = this.personService.getPersonsByCity(city);
         return ResponseEntity.ok(PersonMapper.personsToEmails(personsByCity));
     }
 
     @GetMapping("/personInfo")
     public ResponseEntity<List<PersonInfo>> getPersonsInfo(@RequestParam String firstName, @RequestParam String lastName) {
+        logger.info("request firstname : " + firstName + " , lastname : " + lastName);
         Set<Person> persons = personService.getPersonsByFirstnameOrLastname(firstName, lastName);
         List<PersonInfo> personsInfo = PersonMapper.personsToPersonsInfo(persons);
         return ResponseEntity.ok(personsInfo);
@@ -89,7 +94,8 @@ public class PersonController {
     }
 
     @GetMapping("/flood/stations")
-    public ResponseEntity<PersonsFloodResponse> getPersonsFlood(@RequestParam Set<Integer> stations){
+    public ResponseEntity<PersonsFloodResponse> getPersonsFlood(@RequestParam Set<Integer> stations) {
+        logger.info("request stations : " + stations);
         Set<Person> persons = personService.getPersonsByFireStationsNumbers(stations);
         PersonsFloodResponse response = PersonMapper.personsToPersonsFloodResponse(persons);
         return ResponseEntity.ok(response);

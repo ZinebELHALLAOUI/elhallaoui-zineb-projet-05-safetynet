@@ -8,5 +8,6 @@ public interface FireStationService {
     FireStation update(final FireStation fireStation);
 
     boolean deleteByStationNumber(final Integer stationNumber);
+
     boolean deleteByAddress(final String address);
 }
