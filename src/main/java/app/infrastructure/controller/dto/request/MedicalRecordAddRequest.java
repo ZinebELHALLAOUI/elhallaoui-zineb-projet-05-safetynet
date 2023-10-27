@@ -1,11 +1,12 @@
 package app.infrastructure.controller.dto.request;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 public class MedicalRecordAddRequest {
-    private String firstName;
-    private String lastName;
-    private String birthdate;
+    @NotEmpty private String firstName;
+    @NotEmpty private String lastName;
+    @NotEmpty private String birthdate;
     private List<String> medications;
     private List<String> allergies;
 

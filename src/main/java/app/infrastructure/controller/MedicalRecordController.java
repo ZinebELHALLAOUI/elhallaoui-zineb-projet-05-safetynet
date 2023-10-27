@@ -8,9 +8,13 @@ import app.infrastructure.mapper.PersonMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
+@Validated
 @RequestMapping("/medicalRecord")
 public class MedicalRecordController {
 
@@ -23,7 +27,7 @@ public class MedicalRecordController {
     }
 
     @PostMapping
-    public ResponseEntity<MedicalRecordResponse> addMedicalRecord(@RequestBody final MedicalRecordAddRequest medicalRecordAddRequest) {
+    public ResponseEntity<MedicalRecordResponse> addMedicalRecord(@Valid @RequestBody final MedicalRecordAddRequest medicalRecordAddRequest) {
         logger.info("request :" + medicalRecordAddRequest);
         Person personWithMedicalRecord = new Person(medicalRecordAddRequest.getFirstName(), medicalRecordAddRequest.getLastName(), medicalRecordAddRequest.getBirthdate(), medicalRecordAddRequest.getMedications(), medicalRecordAddRequest.getAllergies());
         Person savedPersonWithMedicalRecord = personService.addMedicalRecordOfPerson(personWithMedicalRecord);
@@ -32,7 +36,7 @@ public class MedicalRecordController {
     }
 
     @PutMapping
-    public ResponseEntity<MedicalRecordResponse> updateMedicalRecord(@RequestBody final MedicalRecordAddRequest medicalRecordAddRequest) {
+    public ResponseEntity<MedicalRecordResponse> updateMedicalRecord(@Valid @RequestBody final MedicalRecordAddRequest medicalRecordAddRequest) {
         logger.info("request :" + medicalRecordAddRequest);
         Person personWithMedicalRecord = new Person(medicalRecordAddRequest.getFirstName(), medicalRecordAddRequest.getLastName(), medicalRecordAddRequest.getBirthdate(), medicalRecordAddRequest.getMedications(), medicalRecordAddRequest.getAllergies());
         Person updatedPersonWithMedicalRecord = personService.updateMedicalRecordOfPerson(personWithMedicalRecord);
@@ -41,7 +45,7 @@ public class MedicalRecordController {
     }
 
     @DeleteMapping("/{firstName}/{lastName}")
-    public ResponseEntity<MedicalRecordResponse> deleteMedicalRecord(@PathVariable final String firstName, @PathVariable final String lastName) {
+    public ResponseEntity<MedicalRecordResponse> deleteMedicalRecord(@Valid @PathVariable final String firstName, @PathVariable final String lastName) {
         logger.info("request firstname : " + firstName + " , lastname : " + lastName);
         personService.deleteMedicalRecordById(Person.generateIdFromFirstnameAndLastname(firstName, lastName));
         return ResponseEntity.ok().build();

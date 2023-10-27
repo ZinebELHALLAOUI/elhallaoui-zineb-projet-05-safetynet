@@ -1,8 +1,11 @@
 package app.infrastructure.controller.dto.request;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class FireStationRequest {
-    private Integer stationNumber;
-    private String address;
+    @NotNull private Integer stationNumber;
+    @NotEmpty private String address;
 
     public Integer getStationNumber() {
         return stationNumber;

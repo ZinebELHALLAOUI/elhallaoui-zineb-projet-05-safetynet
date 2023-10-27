@@ -62,19 +62,19 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Set<Person> getChildrenByAddress(String address) {
         List<Person> persons = personRepository.getAll();
-        logger.debug("found persons by address : " + persons.size());
         Set<Person> children = persons
                 .stream()
                 .filter(person -> address.equals(person.getAddress()))
                 .filter(person -> person.getBirthdate() != null && person.isMinor())
                 .collect(Collectors.toSet());
-        logger.debug("found children : " + children.size());
         return children;
     }
 
     @Override
     public Set<Person> getPersonsByAddress(String address) {
-        return personRepository.getAll()
+        List<Person> persons = personRepository.getAll();
+        logger.debug("found persons by address : " + persons.size());
+        return persons
                 .stream()
                 .filter(person -> address.equals(person.getAddress()))
                 .collect(Collectors.toSet());

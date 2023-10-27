@@ -12,11 +12,14 @@ import app.infrastructure.mapper.PersonMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 @RestController
+@Validated
 @RequestMapping("/firestation")
 public class FireStationController {
 
@@ -31,7 +34,7 @@ public class FireStationController {
     }
 
     @PostMapping
-    public ResponseEntity<FireStationReponse> add(@RequestBody final FireStationRequest fireStationRequest) {
+    public ResponseEntity<FireStationReponse> add(@Valid @RequestBody final FireStationRequest fireStationRequest) {
         logger.info("request :" + fireStationRequest);
         FireStation fireStation = new FireStation(fireStationRequest.getStationNumber(), fireStationRequest.getAddress());
         FireStation addedFireStation = fireStationService.add(fireStation);
@@ -39,7 +42,7 @@ public class FireStationController {
     }
 
     @PutMapping
-    public ResponseEntity<FireStationReponse> update(@RequestBody final FireStationRequest fireStationRequest) {
+    public ResponseEntity<FireStationReponse> update(@Valid @RequestBody final FireStationRequest fireStationRequest) {
         logger.info("request :" + fireStationRequest);
         FireStation fireStation = new FireStation(fireStationRequest.getStationNumber(), fireStationRequest.getAddress());
         FireStation addedFireStation = fireStationService.update(fireStation);
@@ -48,7 +51,7 @@ public class FireStationController {
 
 
     @DeleteMapping("/{addressOrStationNumber}")
-    public ResponseEntity delete(@PathVariable final String addressOrStationNumber) {
+    public ResponseEntity delete(@Valid @PathVariable final String addressOrStationNumber) {
         logger.info("request addressOrStationNumber:" + addressOrStationNumber);
 
         try {

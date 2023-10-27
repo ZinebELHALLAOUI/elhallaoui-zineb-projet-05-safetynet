@@ -37,7 +37,7 @@ public class PersonController {
     }
 
     @PutMapping("/person")
-    public ResponseEntity<PersonDto> updatePerson(@RequestBody final PersonAddRequest personAddRequest) {
+    public ResponseEntity<PersonDto> updatePerson(@Valid @RequestBody final PersonAddRequest personAddRequest) {
         logger.info("request :" + personAddRequest);
         Person person = PersonMapper.requestToPerson(personAddRequest);
         Person addedPerson = personService.updatePerson(person);
@@ -47,7 +47,7 @@ public class PersonController {
 
 
     @DeleteMapping("/person/{firstName}/{lastName}")
-    public ResponseEntity deletePerson(@PathVariable final String firstName, @PathVariable final String lastName) {
+    public ResponseEntity deletePerson(@Valid @PathVariable final String firstName, @PathVariable final String lastName) {
         logger.info("request firstname : " + firstName + " , lastname : " + lastName);
         personService.deletePersonById(Person.generateIdFromFirstnameAndLastname(firstName, lastName));
         return ResponseEntity.ok().build();
