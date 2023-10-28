@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: Safety net alert
+
+server:
+  port : 8080
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
